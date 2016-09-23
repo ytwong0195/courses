@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>delete course</title>
+</head>
+<body>
+	
+	<h2>Are you sure you want to delete the following course?</h2>
+	{% for course in course %}
+	<p>Name: {{course.title}}</p>
+	<p>Description: {{course.description}}</p>
+
+	{% endfor %}
+	<form action="/" method="GET">
+	<input type="submit"  value="No" >
+	</form>
+
+	<form action="/courses/destroy/{{course[0].id}}" method="POST" >
+	<input type="submit"  value="Yes! I want to delete this">
+	</form>
+</body>
+</html>

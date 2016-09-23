@@ -1,8 +1,67 @@
-<html>
-  <head>
-    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
-  </head>
-  <body>
-    The best place to start is the "WelcomeController.py" file in app/controllers.
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Coding Dojo courses</title>
+	<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+#message {
+	color: red;
+}
+
+#wrapper{
+	line-height: 1.5;
+}
+</style>
+
+</head>
+
+<body>
+	<div id=wrapper>
+	<h2>Add a new course</h2>
+	{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				{% for message in messages %}
+				<div id='message'>{{message}}</div>
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+		<br>
+	<form action="/courses/add" method="POST">
+		Name: <input type="text" name="title"><br>
+		
+		Description (optional): <textarea name="description"></textarea><br>
+		<input type="submit" name="addcourse" value="add">
+	</form>
+
+
+	<h2>Courses</h2>
+
+	<table>
+		<tr>
+			<th>Course Name</th>
+			<th>Description</th>
+			<th>Date Added</th>
+			<th>Actions</th>
+		</tr>
+		{% for course in course %}
+		<tr>
+			<td>{{course.title}}</td>
+			<td>{{course.description}}</td>
+			<td>{{course.created_at}}</td>
+			<td><a href="/courses/show/{{course.id}}">remove</a></td>
+
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+</body>
+
 </html>
